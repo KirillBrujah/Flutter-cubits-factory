@@ -16,13 +16,23 @@ class FirstScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => FirstCubit()..load(),
         child: DataList<FirstModel, FirstCubit>(
-          itemBuilder: (item) {
-            return Card(
-              child: Text(item.name),
-            );
-          },
+          itemBuilder: (item) => _ItemCard(item),
         ),
       ),
+    );
+  }
+}
+
+
+class _ItemCard extends StatelessWidget {
+  const _ItemCard(this.item);
+
+  final FirstModel item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Text(item.name),
     );
   }
 }
