@@ -1,14 +1,26 @@
+import 'package:cubits_factory/blocs/blocs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DataListBuilder {
+class DataList<T, C extends DataCubit<DataState<T>>> extends StatelessWidget {
+  const DataList({super.key, required this.itemBuilder});
 
-}
-
-class _List extends StatelessWidget {
-  const _List({super.key});
+  final Widget Function(T item) itemBuilder;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocBuilder<C, DataState<T>>(
+      builder: (context, state) {
+        return state.when(
+          initial: () => const Center(child: CircularProgressIndicator()),
+          error: (message) => Center(child: Text(message)),
+          data: (data) => ListView.separated(
+            itemCount: data.length,
+            itemBuilder: (context, index) => itemBuilder(data[index]),
+            separatorBuilder: (context, index) => const Divider(),
+          ),
+        );
+      },
+    );
   }
 }
