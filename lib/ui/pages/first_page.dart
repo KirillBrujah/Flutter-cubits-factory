@@ -16,17 +16,45 @@ class FirstScreen extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) => CubitFactory.createAll().first,
-        child: DataList<FirstModel, FirstCubit>(
-          itemBuilder: (item) => _ItemCard(item),
-        ),
+        child: const _Body(),
       ),
     );
   }
 }
 
+class _Body extends StatelessWidget {
+  const _Body();
 
-class _ItemCard extends StatelessWidget {
-  const _ItemCard(this.item);
+  @override
+  Widget build(BuildContext context) {
+    return DataList<DataCubit, DataModel>(
+      itemBuilder: (item) => _buildItem(item),
+    );
+  }
+
+  Widget _buildItem(DataModel item) {
+    return switch (item) {
+      FirstModel() => _ItemCard1(item),
+      SecondModel() => _ItemCard2(item),
+    };
+  }
+}
+
+class _ItemCard2 extends StatelessWidget {
+  const _ItemCard2(this.item);
+
+  final SecondModel item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Text('Type = ${item.type}'),
+    );
+  }
+}
+
+class _ItemCard1 extends StatelessWidget {
+  const _ItemCard1(this.item);
 
   final FirstModel item;
 
