@@ -15,7 +15,7 @@ class MainScreen extends StatelessWidget {
         title: const Text("Main screen"),
       ),
       body: BlocProvider(
-        create: (context) => CubitFactory.createAll().first,
+        create: (context) => CubitFactory.createFirst(),
         child: const _Body(),
       ),
     );
@@ -32,4 +32,3 @@ class _Body extends StatelessWidget {
     );
   }
 }
-
