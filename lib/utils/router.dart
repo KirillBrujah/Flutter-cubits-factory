@@ -5,7 +5,7 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const FirstScreen(),
+      builder: (context, state) => const MainScreen(),
     ),
   ],
 );
